@@ -163,21 +163,21 @@ assert all(id_to_token[token_to_id[key]]==key for key in token_to_id) and all(to
 # Your code here:
 # -----------------------------------------------
 def tokenize(input_string: str) -> list:
-
-    punctuation = ".,!?;:'\"()[]{}<>-"
-    
+    punctuation = ".,!?:;'\"()[]{}<>-"
     cleaned_string = ''.join(char if char not in punctuation else ' ' for char in input_string)
-    
     tokens = cleaned_string.lower().split()
-    
     return sorted(set(tokens))
+
+# Define make_vocabulary_map
+def make_vocabulary_map(tokens):
+    t2i = {token: idx for idx, token in enumerate(tokens)}
+    i2t = {idx: token for token, idx in t2i.items()}
+    return t2i, i2t
 
 # Test
 t2i, i2t = make_vocabulary_map([text])
 all(i2t[t2i[tok]] == tok for tok in t2i) # should be True
 # -----------------------------------------------
-
-
 
 # Task 8: Define a function that will take in a list of strings ('documents') and a vocabulary
 #   dictionary token_to_id, that tokenizes each string in the list and returns a list with
